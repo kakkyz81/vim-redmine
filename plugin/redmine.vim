@@ -221,7 +221,13 @@ function! s:redmineAddTicketPost(subject, project_id, ...)
     let put_xml .= '<project_id>' . a:project_id . '</project_id>'
     let put_xml .= '<subject>'    . iconv(a:subject, &encoding, "utf-8") . '</subject>'
     if !empty(l:discription)
-        let put_xml .= '<description>' . iconv(l:discription, &encoding, "utf-8") . '</description>'
+        let tx = iconv(l:discription, &encoding, "utf-8")
+        let tx = substitute(tx, '&', '\&amp;',  'g')
+        let tx = substitute(tx, '<', '\&lt;',   'g')
+        let tx = substitute(tx, '>', '\&gt;',   'g')
+        let tx = substitute(tx, "'", '\&apos;', 'g')
+        let tx = substitute(tx, '"', '\&quot;', 'g')
+        let put_xml .= '<description>' . tx . '</description>'
     endif
     let put_xml .= '</issue>'
     let ret = webapi#http#post(url, put_xml, {'Content-Type' : 'text/xml'} , 'POST')
