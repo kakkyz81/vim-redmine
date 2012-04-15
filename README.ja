@@ -98,3 +98,7 @@ ChangeLog
 - RedmineEditTicketでの文字化けを修正
 - 新規チケットを追加するRedmineAddTicket、本文を編集して追加できるRedmineAddTicketWithDiscription追加
 
+2012-04-11 by kakkyz (@kakkyz81)
+- webapi changed.
+- escape html at RedmineAddTicketWithDiscription.
+- bug fix when RedmineAddTicketWithDiscription works many time.
