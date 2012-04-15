@@ -204,7 +204,10 @@ function! RedmineAddTicketWithDiscription(...)
     " open tempbuffer
     call s:setupDiscriptionBuffer()
     call append(0, l:subject)
-    autocmd BufWritePost <buffer> call s:redmineAddTicketWithDiscriptionWrite() | bdelete
+    augroup redminevim
+        autocmd!
+        autocmd BufWritePost <buffer> call s:redmineAddTicketWithDiscriptionWrite() | bdelete
+    augroup END
 endfunc
 
 function! s:redmineAddTicketWithDiscriptionWrite()
